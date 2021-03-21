@@ -5,11 +5,11 @@ import { Link, useHistory } from 'react-router-dom';
 export default function RideCard({ride}) {
     const history = useHistory()
     const handleRide = (id) => {
-        history.push(`/destination/${id}`);
+        history.push(`/booking/${id}`);
     }
     return (
         <div>
-            <Link to="/destination">
+            <Link to="/booking">
                 <Card
                     style={{ width: '18rem', height: '20rem', margin: '200px 50px' }}
                     className="mb-2"

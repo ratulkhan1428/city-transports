@@ -14,8 +14,8 @@ const Header = () => {
                 <Nav>
                   <Nav.Link href="/home">Home</Nav.Link>
                   <Nav.Link href="/destination">Destination</Nav.Link>
-                  <Nav.Link href="blog">Blog</Nav.Link>
-                  <Nav.Link style={{backgroundColor: 'green', borderRadius: '10px'}} href="login">Login</Nav.Link>
+                  <Nav.Link href="/blog">Blog</Nav.Link>
+                  <Nav.Link style={{backgroundColor: 'green', borderRadius: '10px'}} href="/login">Login</Nav.Link>
                 </Nav>
               </Navbar.Collapse>
             </Navbar>

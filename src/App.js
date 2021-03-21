@@ -8,6 +8,7 @@ import {
 import Home from './components/Home/Home';
 import Header from './components/Header/Header';
 import Destination from './components/Destination/Destination';
+import Booking from './components/Booking/Booking';
 import Blog from './components/Blog/Blog';
 import Login from './components/Login/Login';
 import NotFound from './components/NotFound/NotFound';
@@ -17,9 +18,9 @@ import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 export const UserContext = createContext();
 
 function App() {
-  const [loggedInUser, setLoggedInUser] = useState({});
+  const [User, setUser] = useState({});
   return (
-    <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>
+    <UserContext.Provider value={[User, setUser]}>
       
       <Header></Header>
       <Router>
@@ -27,9 +28,9 @@ function App() {
           <Route path="/home">
             <Home></Home>
           </Route>
-          <PrivateRoute path="/destination">
+          <Route path="/destination">
             <Destination></Destination>
-          </PrivateRoute>
+          </Route>
           <Route path="/blog">
             <Blog></Blog>
           </Route>
@@ -39,8 +40,8 @@ function App() {
           <Route path="/signup">
             <Signup></Signup>
           </Route>
-          <PrivateRoute path="/destination/:id">
-            <Destination></Destination>
+          <PrivateRoute path="/booking">
+            <Booking></Booking>
           </PrivateRoute>
           <Route exact path="/">
             <Home></Home>

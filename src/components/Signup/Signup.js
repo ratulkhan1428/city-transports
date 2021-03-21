@@ -1,70 +1,42 @@
-import React, { useRef, useState } from 'react';
-import { Form, Button, Card, Container, Alert } from 'react-bootstrap';
-import { Link, useHistory } from 'react-router-dom';
-import { AuthProvider, useAuth } from '../AuthContext/AuthContext';
+import React, { useState } from 'react';
+import { Container, Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { emailSignUp } from '../AuthContext/AuthContext';
 
 
-export default function Signup() {
-    const emailRef = useRef()
-    const passwordRef = useRef()
-    const passwordConfirmRef = useRef()
-    const { signup } = useAuth()
-    const [error, setError] = useState('')
-    const [loading, setLoading] = useState(false)
-    const history = useHistory()
+const Signup = () => {
+    const [email, setEmail] = useState();
+    const [pass, setPass] = useState();
 
-    async function handleSubmit(e) {
-        e.preventDefault();
-
-        if(passwordRef.current.value !== passwordConfirmRef.current.value) {
-            return setError('Password do not match')
-        }
-
-        try {
-            setError('')
-            setLoading(true)
-            await signup(emailRef.current.value, passwordRef.current.value)
-            history.push('/destination')
-        }
-        catch {
-            setError('Failed to create an account')
-        }
-        setLoading(false)
+    const handleSignUp = () => {
+        emailSignUp(email, pass)
     }
-
+    const getEmail = (e) => {
+        setEmail(e.target.value)
+    }
+    const getPass = (e) => {
+        setPass(e.target.value)
+    }
     return (
-        <AuthProvider>
-            <Container
-                className="d-flex align-items-center justify-content-center"
-                style={{ minHeight: '100vh' }}
-            >
-                <div className="w-100" style={{ maxWidth: '400px' }}>
-                    <Card>
-                        <Card.Body>
-                            <h2 className="text-center mb-4">Sign Up</h2>
-                            {error && <Alert variant="danger">{error}</Alert>}
-                            <Form onSubmit={handleSubmit}>
-                                <Form.Group id="email">
-                                    <Form.Label>Email</Form.Label>
-                                    <Form.Control type="email" ref={emailRef} required />
-                                </Form.Group>
-                                <Form.Group id="password">
-                                    <Form.Label>Password</Form.Label>
-                                    <Form.Control type="password" ref={passwordRef} required />
-                                </Form.Group>
-                                <Form.Group id="password-confirm">
-                                    <Form.Label>Password Confirmation</Form.Label>
-                                    <Form.Control type="password" ref={passwordConfirmRef} required />
-                                </Form.Group>
-                                <Button disabled={loading} className="w-100" type="submit">Sign Up</Button>
-                            </Form>
-                        </Card.Body>
-                    </Card>
-                    <div className="w-100 text-center mt-2">
-                        Already have an account? <Link to="/login">Log In</Link>
-                    </div>
+        <>
+        <Container>
+            <Row className="justify-content-center align-items-center mt-5">
+            <Col xs={12} md={6}>
+                <div className="border rounded p-4 pb-5 form">
+                    <h2>Signup</h2>
+                    <form onSubmit={handleSignUp}>
+                        <input type="text" name="firstName" id="firstName"required className="form-control mt-4" placeholder="First Name"/>
+                        <input type="text" name="lastName" id="lastName"required className="form-control mt-4" placeholder="Last Name"/>
+                        <input type="email" name="email" id="email"required className="form-control mt-4" onChange={getEmail} placeholder="Email"/>
+                        <input type="password" name="password" id="password" required className="form-control mt-4" onChange={getPass} placeholder="Password"/>
+                        <input type="submit" value="Create Account" className="form-control mt-4 btn-primary"/>
+                        <p className="mt-4"><Link to="/login">Already have an account? Login</Link></p>
+                    </form>
                 </div>
-            </Container>
-        </AuthProvider>
+            </Col>
+            </Row>
+        </Container>
+        </>
     );
 };
+export default Signup;
